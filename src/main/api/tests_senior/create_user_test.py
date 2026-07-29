@@ -57,5 +57,3 @@ class TestCreateUser:
         # ДОБАВЛЯЕМ ПРОВЕРКИ БД
         user_from_db = User.get_user_by_username(db_session, create_user_request.username)
         assert user_from_db is None, 'Пользователь создан, ошибка'
-
-# ПЕРЕХОДИМ В
