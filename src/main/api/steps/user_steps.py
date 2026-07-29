@@ -31,7 +31,7 @@ class UserSteps(BaseSteps):
 #_______________________________________________________________________________________
 #_______________________________________________________________________________________
 
-    def deposit_account(self, deposit_account_request: DepositAccountRequest, create_user_request):
+    def deposit_account(self, create_user_request: CreateUserRequest, deposit_account_request: DepositAccountRequest):
         response = ValidateCrudRequester(
             RequestSpecs.auth_headers(username=create_user_request.username, password=create_user_request.password),
             Endpoint.DEPOSIT_ACCOUNT,
@@ -40,7 +40,7 @@ class UserSteps(BaseSteps):
         return response
 
 
-    def deposit_account_invalid_400(self, deposit_account_request: DepositAccountRequest, create_user_request):
+    def deposit_account_invalid_400(self, create_user_request: CreateUserRequest, deposit_account_request: DepositAccountRequest):
         CrudRequester(
             RequestSpecs.auth_headers(username=create_user_request.username, password=create_user_request.password),
             Endpoint.DEPOSIT_ACCOUNT,

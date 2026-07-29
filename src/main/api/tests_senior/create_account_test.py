@@ -25,5 +25,6 @@ class TestCreateAccount:
         before_count = Account.count_all(db_session)
         api_manager.user_steps.create_account_invalid_403()
 
+        # ДОБАВЛЯЕМ ПРОВЕРКИ БД
         after_count = Account.count_all(db_session)
         assert before_count == after_count, 'Аккаунт создан, хотя ожидалась ошибка 403'

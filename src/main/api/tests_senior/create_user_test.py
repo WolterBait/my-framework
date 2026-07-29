@@ -8,11 +8,8 @@ from sqlalchemy.orm import Session
 @pytest.mark.api
 class TestCreateUser:
     # Создание и получение токена админа для создания обычного юзера
-
-                               # ДОБАВЛЯЕМ ФИКСТУРУ И ТИПИЗАЦИЮ
-    def test_create_user_valid(self, api_manager: ApiManager, db_session: Session):
+    def test_create_user_valid(self, api_manager: ApiManager, create_user_request: CreateUserRequest, db_session: Session):
         # Создаём пользователя
-        create_user_request = CreateUserRequest(username="Max22222", password="Pas!sw0rd", role="ROLE_USER")
         response = api_manager.admin_steps.create_user(create_user_request)
 
         assert create_user_request.username == response.username
