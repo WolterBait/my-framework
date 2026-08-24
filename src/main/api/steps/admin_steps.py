@@ -13,26 +13,26 @@ class AdminSteps(BaseSteps):
         response = ValidateCrudRequester(
             RequestSpecs.auth_headers(username="admin", password="123456"),
             Endpoint.ADMIN_CREATE_USER,
-            ResponseSpecs.status_code_200()
+            ResponseSpecs.status_code_ok()
         ).post(create_user_request)
 
         self.created_obj.append(response)
         return response
 
 
-    def create_invalid_user_400(self, create_user_request: CreateUserRequest):
+    def create_invalid_user_bad_request(self, create_user_request: CreateUserRequest):
         CrudRequester(
             RequestSpecs.auth_headers(username="admin", password="123456"),
             Endpoint.ADMIN_CREATE_USER,
-            ResponseSpecs.status_code_400()
+            ResponseSpecs.status_code_bad_request() # 400
         ).post(create_user_request)
 
 
-    def create_invalid_user_401(self, create_user_request: CreateUserRequest):
+    def create_invalid_user_unauthorized(self, create_user_request: CreateUserRequest):
         CrudRequester(
             RequestSpecs.no_auth_headers(),
             Endpoint.ADMIN_CREATE_USER,
-            ResponseSpecs.status_code_401()
+            ResponseSpecs.status_code_unauthorized() # 401
         ).post(create_user_request)
 
 #________________________________________________________________________________________________________________
@@ -42,25 +42,25 @@ class AdminSteps(BaseSteps):
         response = ValidateCrudRequester(
             RequestSpecs.no_auth_headers(),
             Endpoint.LOGIN_USER,
-            ResponseSpecs.status_code_200()
+            ResponseSpecs.status_code_ok()
         ).post(auth_login_request)
 
         return response
 
 
-    def login_user_invalid_400(self, auth_login_request: LoginUserRequest):
+    def login_user_invalid_bad_request(self, auth_login_request: LoginUserRequest):
         CrudRequester(
             RequestSpecs.no_auth_headers(),
             Endpoint.LOGIN_USER,
-            ResponseSpecs.status_code_400()
+            ResponseSpecs.status_code_bad_request()
         ).post(auth_login_request)
 
 
-    def login_user_invalid_401(self, auth_login_request: LoginUserRequest):
+    def login_user_invalid_unauthorized(self, auth_login_request: LoginUserRequest):
         CrudRequester(
             RequestSpecs.no_auth_headers(),
             Endpoint.LOGIN_USER,
-            ResponseSpecs.status_code_401()
+            ResponseSpecs.status_code_unauthorized()
         ).post(auth_login_request)
 
 #________________________________________________________________________________________________________________
@@ -70,7 +70,7 @@ class AdminSteps(BaseSteps):
         CrudRequester(
             RequestSpecs.auth_headers(username="admin", password="123456"),
             Endpoint.ADMIN_DELETE_USER,
-            ResponseSpecs.status_code_200()
+            ResponseSpecs.status_code_ok()
         ).delete(user_id)
 
 

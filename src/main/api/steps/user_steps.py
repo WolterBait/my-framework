@@ -16,16 +16,16 @@ class UserSteps(BaseSteps):
         response = ValidateCrudRequester(
             RequestSpecs.auth_headers(username=create_user_request.username, password=create_user_request.password),
             Endpoint.ACCOUNT_CREATE,
-            ResponseSpecs.status_code_201()
+            ResponseSpecs.status_code_created()
         ).post()
         return response
 
 
-    def create_account_invalid_403(self):
+    def create_account_invalid_forbidden(self):
         CrudRequester(
             RequestSpecs.auth_headers(username="admin", password="123456"),
             Endpoint.ACCOUNT_CREATE,
-            ResponseSpecs.status_code_403()
+            ResponseSpecs.status_code_forbidden()
         ).post()
 
 #_______________________________________________________________________________________
@@ -35,44 +35,44 @@ class UserSteps(BaseSteps):
         response = ValidateCrudRequester(
             RequestSpecs.auth_headers(username=create_user_request.username, password=create_user_request.password),
             Endpoint.DEPOSIT_ACCOUNT,
-            ResponseSpecs.status_code_200()
+            ResponseSpecs.status_code_ok()
         ).post(deposit_account_request)
         return response
 
 
-    def deposit_account_invalid_400(self, create_user_request: CreateUserRequest, deposit_account_request: DepositAccountRequest):
+    def deposit_account_invalid_bad_request(self, create_user_request: CreateUserRequest, deposit_account_request: DepositAccountRequest):
         CrudRequester(
             RequestSpecs.auth_headers(username=create_user_request.username, password=create_user_request.password),
             Endpoint.DEPOSIT_ACCOUNT,
-            ResponseSpecs.status_code_400()
+            ResponseSpecs.status_code_bad_request()
         ).post(deposit_account_request)
 
 
-    def deposit_account_invalid_401(self, deposit_account_request: DepositAccountRequest):
+    def deposit_account_invalid_unauthorized(self, deposit_account_request: DepositAccountRequest):
         CrudRequester(
             RequestSpecs.no_auth_headers(),
             Endpoint.DEPOSIT_ACCOUNT,
-            ResponseSpecs.status_code_401()
+            ResponseSpecs.status_code_unauthorized()
         ).post(deposit_account_request)
 
 #_______________________________________________________________________________________
 #_______________________________________________________________________________________
 
 
-    def transfer_account(self, transfer_account_request: TransferAccountRequest, create_user_request):
+    def transfer_account(self, create_user_request: CreateUserRequest, transfer_account_request: TransferAccountRequest):
         response = ValidateCrudRequester(
             RequestSpecs.auth_headers(username=create_user_request.username, password=create_user_request.password),
             Endpoint.TRANSFER_ACCOUNT,
-            ResponseSpecs.status_code_200()
+            ResponseSpecs.status_code_ok()
         ).post(transfer_account_request)
         return response
 
 
-    def transfer_account_invalid_401(self, transfer_account_request: TransferAccountRequest):
+    def transfer_account_invalid_unauthorized(self, transfer_account_request: TransferAccountRequest):
         CrudRequester(
             RequestSpecs.no_auth_headers(),
             Endpoint.TRANSFER_ACCOUNT,
-            ResponseSpecs.status_code_401()
+            ResponseSpecs.status_code_unauthorized()
         ).post(transfer_account_request)
 
 #_______________________________________________________________________________________
@@ -82,33 +82,33 @@ class UserSteps(BaseSteps):
         response = ValidateCrudRequester(
             RequestSpecs.auth_headers(username=create_user_request_credit.username, password=create_user_request_credit.password),
             Endpoint.CREDIT_REQUEST,
-            ResponseSpecs.status_code_201()
+            ResponseSpecs.status_code_created()
         ).post(credit_request_request)
         return response
 
 
-    def credit_request_invalid_404(self, credit_request_request: CreditRequestRequest, create_user_request_credit):
+    def credit_request_invalid_not_found(self, credit_request_request: CreditRequestRequest, create_user_request_credit):
         CrudRequester(
             RequestSpecs.auth_headers(username=create_user_request_credit.username, password=create_user_request_credit.password),
             Endpoint.CREDIT_REQUEST,
-            ResponseSpecs.status_code_404()
+            ResponseSpecs.status_code_not_found()
         ).post(credit_request_request)
 
 #_______________________________________________________________________________________
 #_______________________________________________________________________________________
 
-    def credit_repay(self, credit_repay_request: CreditRepayRequest, create_user_request_credit):
+    def credit_repay(self, create_user_request_credit, credit_repay_request: CreditRepayRequest):
         response = ValidateCrudRequester(
             RequestSpecs.auth_headers(username=create_user_request_credit.username, password=create_user_request_credit.password),
             Endpoint.CREDIT_REPAY,
-            ResponseSpecs.status_code_200()
+            ResponseSpecs.status_code_ok()
         ).post(credit_repay_request)
         return response
 
 
-    def credit_repay_invalid_422(self, credit_repay_request: CreditRepayRequest, create_user_request_credit):
+    def credit_repay_invalid_unprocessable_entity(self, create_user_request_credit, credit_repay_request: CreditRepayRequest):
         CrudRequester(
             RequestSpecs.auth_headers(username=create_user_request_credit.username, password=create_user_request_credit.password),
             Endpoint.CREDIT_REPAY,
-            ResponseSpecs.status_code_422()
+            ResponseSpecs.status_code_unprocessable_entity()
         ).post(credit_repay_request)
