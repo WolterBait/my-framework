@@ -1,8 +1,10 @@
+import pytest
 from playwright.sync_api import expect
 from src.main.ui.steps.login_steps import LoginSteps
 from src.main.ui.steps.catalog_steps import CatalogSteps
 from src.main.ui.pages.catalog_page import CatalogPage
 
+@pytest.mark.ui
 class TestAuth():
     def test_only_auth_logout_standard_user(self, page):
         # Инициализируем LoginSteps

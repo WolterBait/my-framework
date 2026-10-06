@@ -1,8 +1,9 @@
+import pytest
 from playwright.sync_api import expect
 from src.main.ui.pages.catalog_page import CatalogPage
 from src.main.ui.steps.catalog_steps import CatalogSteps
 
-
+@pytest.mark.ui
 class TestCatalog:
     def test_catalog_count_product(self, auth_page):
         # Инициализируем CatalogSteps

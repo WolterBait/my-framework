@@ -7,4 +7,4 @@ def auth_page(page):
     page.get_by_placeholder("Username").fill("standard_user")
     page.get_by_placeholder("Password").fill("secret_sauce")
     page.locator("#login-button").click()
-    return page  # Возвращаем авторизованную страницу
+    yield page  # Возвращаем авторизованную страницу

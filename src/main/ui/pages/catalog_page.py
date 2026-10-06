@@ -7,8 +7,8 @@ class CatalogPage:
     def __init__(self, page: Page):
         self.page = page
 
-        self.burger_menu_button = page.get_by_role("button", name="Open Menu")
-        self.logout_link = page.get_by_role("link", name="Logout")
+        self.burger_menu_button = page.locator("#react-burger-menu-btn")
+        self.logout_link = page.locator("#logout_sidebar_link")
 
         self.product_cards = page.locator(".inventory_item")
         self.sort_select = page.locator(".product_sort_container")
@@ -26,6 +26,7 @@ class CatalogPage:
     def logout(self):
         """Метод для выполнения логаута"""
         self.burger_menu_button.click()
+        expect(self.logout_link).to_be_visible()
         self.logout_link.click()
 
 
